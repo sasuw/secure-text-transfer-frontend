@@ -33,6 +33,12 @@
                     I have a PIN<br><br>
                     <div><input onfocus="focusField(this);" class="u-half-width" type="number" placeholder="PIN" id="pinInput"></div>
                     <input class="button-primary" type="submit" value="Get string with PIN" onclick="showPwdForPin();">
+				</div>
+				<div id="igotpwd" class="six columns" style="margin-top: 25%; margin-left: 0; text-align: center; border-right: 1px solid black; display:none;">
+                    <div id="stringStart">Your string is</div>
+					<div id="pwdValue" style="font-size: 2em; height: 43px;">111</div>
+					<div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
+                    <input class="button-primary" type="submit" value="Got it" id="gotitPwd" onclick="gotItPwd();"><br>
                 </div>
                 <div id="ihavepwd" class="six columns" style="margin-top: 25%; text-align: center; border-left: 1px solid black;">
                     I have a string<br><br>
@@ -44,7 +50,7 @@
 					<div id="pinValue" style="font-size: 2em; height: 43px;">111</div>
 					<div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
 					<div style="height: 34px;" id="pinHint">The PIN can be used for the next <span id="time">05:00</span> minutes</div>
-                    <input class="button-primary" type="submit" value="Got it" id="gotit" onclick="gotIt();"><br>
+                    <input class="button-primary" type="submit" value="Got it" id="gotitPin" onclick="gotItPin();"><br>
                 </div>
             </div>
         </div>
