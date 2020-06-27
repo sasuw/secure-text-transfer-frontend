@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
+        <!-- Basic Page Needs
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta charset="utf-8">
+        <title>Secure string transfer</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- Mobile Specific Metas
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- FONT
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <!-- CSS
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/skeleton.css">
+        <!-- Favicon
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <style>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Secure string transfer</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-<style>
-.ihaveparent:hover #ihavepwd{
-	opacity: 0.5;
-}
-#ihavepwd:hover + .ihaveparent{
-	opacity: 0.5;
-}
-</style>
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <div class="row" class="ihaveparent">
-      <div id="ihavepin" class="six columns" style="margin-top: 25%; text-align: center; border-right: 1px solid black;">
-		I have a PIN<br><br>
-      <input class="u-half-width" type="number" placeholder="PIN" id="pinInput">
-	  <input class="button-primary" type="submit" value="Get password with PIN">
-      </div>
-	  <div id="ihavepwd" class="six columns" style="margin-top: 25%; text-align: center; border-left: 1px solid black;">
-		I have a password<br><br>
-		<input class="u-half-width" type="text" placeholder="Password" id="pwdInput"><br>
-		<input class="button-primary" type="submit" value="Store and get PIN">
-      </div>
-    </div>
-  </div>
-
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
+        </style>
+    </head>
+    <body onload="main()">
+        <!-- Primary Page Layout
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <div class="container">
+            <div class="row" class="ihaveparent">
+                <div id="ihavepin" class="six columns" style="margin-top: 25%; text-align: center; border-right: 1px solid black;">
+                    I have a PIN<br><br>
+                    <div><input onfocus="focusField(this);" class="u-half-width" type="number" placeholder="PIN" id="pinInput"></div>
+                    <input class="button-primary" type="submit" value="Get string with PIN" onclick="showPwdForPin();">
+                </div>
+                <div id="ihavepwd" class="six columns" style="margin-top: 25%; text-align: center; border-left: 1px solid black;">
+                    I have a string<br><br>
+                    <div><input onfocus="focusField(this);" class="u-half-width" type="text" placeholder="String" id="pwdInput"></div>
+                    <input class="button-primary" type="submit" value="Store and get PIN" onclick="showPinForString();"><br>
+                </div>
+				<div id="igotpin" class="six columns" style="margin-top: 25%; text-align: center; border-left: 1px solid black; display:none;">
+                    Your PIN is<br>
+					<div id="pinValue" style="font-size: 2em; height: 43px;">111</div>
+					<div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
+					<div style="height: 34px;" id="pinHint">The PIN can be used for the next <span id="time">05:00</span> minutes</div>
+                    <input class="button-primary" type="submit" value="Got it" id="gotit" onclick="gotIt();"><br>
+                </div>
+            </div>
+        </div>
+        <!-- End Document
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <script src="js/main.js"></script>
+    </body>
 </html>
