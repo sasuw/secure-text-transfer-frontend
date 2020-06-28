@@ -123,7 +123,7 @@ function focusField(field) {
 }
 
 async function getPinForString(string) {
-    let url = 'http://127.0.0.1:10000/string'
+    let url = 'http://stt.sasu.net:10000/string'
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
@@ -140,7 +140,7 @@ async function getPinForString(string) {
 }
 
 async function getStringForPin(string) {
-    let url = 'http://127.0.0.1:10000/pin'
+    let url = 'http://stt.sasu.net:10000/pin'
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
@@ -157,7 +157,7 @@ async function getStringForPin(string) {
 }
 
 function getInitialTimeInSeconds() {
-    return 6;
+    return 300;
 }
 
 function getInitialTimeString() {
