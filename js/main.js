@@ -31,11 +31,29 @@ function main() {
 }
 
 function show(elId) {
-    document.getElementById(elId).style.display = 'block';
+    let el = document.getElementById(elId);
+    if (el == null || el.style == null) {
+        log('No element with id ' + elId + ' found');
+        return;
+    }
+    if (el.style.visibility === 'hidden') {
+        el.style.visibility = 'unset';
+    }else if (el.style.display === 'none') {
+        el.style.display = 'block';
+    }
 }
 
 function hide(elId) {
-    document.getElementById(elId).style.display = 'none';
+    let el = document.getElementById(elId);
+    if (el == null || el.style == null) {
+        log('No element with id ' + elId + ' found');
+        return;
+    }
+    if (el.style.visibility === 'unset') {
+        el.style.visibility = 'hidden';
+    } else if (el.style.display === 'block' || el.style.display === '') {
+        el.style.display = 'none';
+    }
 }
 
 function showPinForString() {
@@ -46,14 +64,22 @@ function showPinForString() {
             return;
         }
 
+        hide('timeExpired');
         hide('ihavepwd');
         show('igotpin');
+        show('pinHint');
 
         startTimer(getInitialTimeInSeconds(), document.getElementById('time'), pinTimeExpired);
 
-        getPinForString(pwdInput.value).then(data => {
+        getPinForString(pwdInput.value).then(response => {
             try {
-                document.getElementById('pinValue').innerText = data;
+                if (response.status !== 200) {
+                    log.error('getPinForString error with status code ' + response.status);
+                } else {
+                    response.text().then(data => {
+                        document.getElementById('pinValue').innerText = data;
+                    });
+                }
             } catch (error) {
                 log('Error 2: ' + error);
             }
@@ -73,11 +99,19 @@ function showPwdForPin(pin) {
     hide('ihavepin');
     show('igotpwd');
 
-    startTimer(getInitialTimeInSeconds(), document.getElementById('time2'), pwdTimeExpired);
+    //startTimer(getInitialTimeInSeconds(), document.getElementById('time2'), pwdTimeExpired);
 
-    getStringForPin(pinInput.value).then(data => {
+    getStringForPin(pinInput.value).then(response => {
         try {
-            document.getElementById('pwdValue').innerText = data;
+            if (response.status === 204) {
+                let pwdValue = document.getElementById('pwdValue');
+                pwdValue.innerHTML = '<span style="color: red">No text found with given PIN</span>';
+                hide('stringStart');
+            } else {
+                response.text().then(data => {
+                    document.getElementById('pwdValue').innerText = data;
+                });
+            }
         } catch (error) {
             log('Error 2: ' + error);
         }
@@ -102,7 +136,7 @@ async function getPinForString(string) {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: string // body data type must match "Content-Type" header
     });
-    return response.text(); // parses JSON response into native JavaScript objects
+    return response; // parses JSON response into native JavaScript objects
 }
 
 async function getStringForPin(string) {
@@ -119,11 +153,11 @@ async function getStringForPin(string) {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: string // body data type must match "Content-Type" header
     });
-    return response.text(); // parses JSON response into native JavaScript objects
+    return response; // parses JSON response into native JavaScript objects
 }
 
 function getInitialTimeInSeconds() {
-    return 667;
+    return 6;
 }
 
 function getInitialTimeString() {
@@ -148,16 +182,12 @@ function pwdTimeExpired() {
     document.getElementById('stringStart').innerText = 'Your string has expired';
     document.getElementById('pwdValue').innerText = '';
     hide('pwdHint');
-    clearInterval(Globals.intervalId);
     document.getElementById('gotitPwd').value = 'Start over';
 }
 
 function pinTimeExpired() {
     hide('pinHint');
     show('timeExpired');
-
-    log('clearing timer');
-    clearInterval(Globals.intervalId);
 
     document.getElementById('gotitPin').value = 'Start over';
 }
@@ -168,7 +198,6 @@ function gotItPin() {
     show('ihavepwd');
     hide('igotpin');
 
-    log('clearing timer');
     clearInterval(Globals.intervalId);
 }
 
@@ -178,7 +207,10 @@ function gotItPwd() {
     show('ihavepin');
     hide('igotpwd');
 
-    log('clearing timer');
+    show('pwdHint');
+
+    show('stringStart');
+
     clearInterval(Globals.intervalId);
 }
 
@@ -187,6 +219,8 @@ function startTimer(duration, display, timerEndFunction) {
 
     let timerFunction = function () {
         try {
+            log('timer: ' + timer);
+
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
 
@@ -196,10 +230,12 @@ function startTimer(duration, display, timerEndFunction) {
             display.textContent = minutes + ":" + seconds;
 
             if (--timer < 0) {
+                log('timerFunction end reached');
                 timerEndFunction();
+                clearInterval(Globals.intervalId);
             }
         } catch (error) {
-            console.log('error: ' + error);
+            log('error: ' + error);
         }
     };
     timerFunction();

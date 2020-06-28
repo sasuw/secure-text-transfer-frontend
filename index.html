@@ -4,7 +4,7 @@
         <!-- Basic Page Needs
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <meta charset="utf-8">
-        <title>Secure string transfer</title>
+        <title>Secure text transfer</title>
         <meta name="description" content="">
         <meta name="author" content="">
         <!-- Mobile Specific Metas
@@ -26,24 +26,34 @@
         <!-- Primary Page Layout
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <div class="container">
+            <div class="row" class="ihaveparent" style="margin-top: 5%; text-align: center;">
+                <div id="title" class="twelve columns">
+                    <h1>Secure Text Transfer</h1>
+                    <p>Type text to get PIN. Enter PIN to get typed text (on another device). Text is automatically deleted from the server in 5 minutes.</p>
+                </div>
+            </div>
             <div class="row" class="ihaveparent">
-                <div id="ihavepin" class="six columns" style="margin-top: 25%; text-align: center; border-right: 1px solid black;">
+                <div id="ihavepin" class="six columns" style="margin-top: 10%; text-align: center; border-right: 1px solid black;">
                     I have a PIN<br><br>
                     <div><input onfocus="focusField(this);" class="u-half-width" type="number" placeholder="PIN" id="pinInput"></div>
                     <input class="button-primary" type="submit" value="Get string with PIN" onclick="showPwdForPin();">
 				</div>
-				<div id="igotpwd" class="six columns" style="margin-top: 25%; margin-left: 0; text-align: center; border-right: 1px solid black; display:none;">
-                    <div id="stringStart">Your string is</div>
+				<div id="igotpwd" class="six columns" style="margin-top: 10%; margin-left: 0; text-align: center; border-right: 1px solid black; display:none;">
+                    <div id="stringStart" style="visibility: unset;">Your text is</div>
 					<div id="pwdValue" style="font-size: 2em; height: 43px;">?</div>
-					<div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
+                    <!--
+                    <div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
+                    <div style="height: 34px; display: none;" id="pwdHintPlaceHolder"></div>
+                    -->
+                    <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
                     <input class="button-primary" type="submit" value="Got it" id="gotitPwd" onclick="gotItPwd();"><br>
                 </div>
-                <div id="ihavepwd" class="six columns" style="margin-top: 25%; text-align: center; border-left: 1px solid black;">
-                    I have a string<br><br>
+                <div id="ihavepwd" class="six columns" style="margin-top: 10%; text-align: center; border-left: 1px solid black;">
+                    I have a text<br><br>
                     <div><input onfocus="focusField(this);" class="u-half-width" type="text" placeholder="String" id="pwdInput"></div>
                     <input class="button-primary" type="submit" value="Store and get PIN" onclick="showPinForString();"><br>
                 </div>
-				<div id="igotpin" class="six columns" style="margin-top: 25%; text-align: center; border-left: 1px solid black; display:none;">
+				<div id="igotpin" class="six columns" style="margin-top: 10%; text-align: center; border-left: 1px solid black; display:none;">
                     Your PIN is<br>
 					<div id="pinValue" style="font-size: 2em; height: 43px;">?</div>
 					<div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
