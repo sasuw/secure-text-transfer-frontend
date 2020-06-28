@@ -1,6 +1,7 @@
 Globals = {
     intervalId: null,
-    inputBorderColor: null
+    inputBorderColor: null,
+    host: 'https://backend.stt.sasu.net'
 };
 
 function log(string) {
@@ -123,7 +124,7 @@ function focusField(field) {
 }
 
 async function getPinForString(string) {
-    let url = 'http://stt.sasu.net:10000/string'
+    let url = Globals.host + '/string';
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
@@ -140,7 +141,7 @@ async function getPinForString(string) {
 }
 
 async function getStringForPin(string) {
-    let url = 'http://stt.sasu.net:10000/pin'
+    let url = Globals.host + '/pin';
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
