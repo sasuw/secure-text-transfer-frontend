@@ -29,6 +29,18 @@ function main() {
 
     let pwdInput = document.getElementById('pwdInput');
     Globals.inputBorderColor = pwdInput.style.borderColor;
+
+    document.getElementById('pinInput').addEventListener('keyup', function onEvent(e) {
+        if (e.keyCode === 13) {
+            showPwdForPin();
+        }
+    });
+
+    document.getElementById('pwdInput').addEventListener('keyup', function onEvent(e) {
+        if (e.keyCode === 13) {
+            showPinForString();
+        }
+    });
 }
 
 function show(elId) {
@@ -39,7 +51,7 @@ function show(elId) {
     }
     if (el.style.visibility === 'hidden') {
         el.style.visibility = 'unset';
-    }else if (el.style.display === 'none') {
+    } else if (el.style.display === 'none') {
         el.style.display = 'block';
     }
 }
