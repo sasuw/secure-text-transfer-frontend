@@ -23,13 +23,13 @@ function getBackendHost(){
         case 'localhost:8080':
         case '127.0.0.1':
         case '127.0.0.1:8080':
-            return '127.0.0.1:9999';
+            return 'http://127.0.0.1:9999';
         case 'stt.sasu.net':
-            return 'backend.stt.sasu.net';
+            return 'https://backend.stt.sasu.net';
         case 'stage.stt.sasu.net':
-            return 'stage.backend.stt.sasu.net';
+            return 'https://stage.backend.stt.sasu.net';
         default:
-            return '127.0.0.1:9999'
+            return 'http://127.0.0.1:9999'
     }
 }
 
