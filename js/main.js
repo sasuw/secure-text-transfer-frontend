@@ -1,8 +1,37 @@
 Globals = {
     intervalId: null,
     inputBorderColor: null,
-    host: 'https://backend.stt.sasu.net'
+    fetchAjaxOptions: {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'text/plain',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer' // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    }
 };
+
+function getBackendHost(){
+    let host = window.location.host;
+    console.log('host: ' + host);
+    switch(host){
+        case 'localhost':
+        case 'localhost:8080':
+        case '127.0.0.1':
+        case '127.0.0.1:8080':
+            return '127.0.0.1:9999';
+        case 'stt.sasu.net':
+            return 'backend.stt.sasu.net';
+        case 'stage.stt.sasu.net':
+            return 'stage.backend.stt.sasu.net';
+        default:
+            return '127.0.0.1:9999'
+    }
+}
 
 function log(string) {
     console.log(string);
@@ -136,36 +165,18 @@ function focusField(field) {
 }
 
 async function getPinForString(string) {
-    let url = Globals.host + '/string';
-    const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: string // body data type must match "Content-Type" header
-    });
+    let url = getBackendHost() + '/string';
+    const response = await fetch(url, Object.assign({
+        body: string
+    }, Globals.fetchAjaxOptions));
     return response; // parses JSON response into native JavaScript objects
 }
 
 async function getStringForPin(string) {
-    let url = Globals.host + '/pin';
-    const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: string // body data type must match "Content-Type" header
-    });
+    let url = getBackendHost() + '/pin';
+    const response = await fetch(url, Object.assign({
+        body: string
+    }, Globals.fetchAjaxOptions));
     return response; // parses JSON response into native JavaScript objects
 }
 
