@@ -166,17 +166,19 @@ function focusField(field) {
 
 async function getPinForString(string) {
     let url = getBackendHost() + '/string';
-    const response = await fetch(url, Object.assign({
+    let initOptions = Object.assign({
         body: string
-    }, Globals.fetchAjaxOptions));
+    }, Globals.fetchAjaxOptions);
+    const response = await fetch(url, initOptions);
     return response; // parses JSON response into native JavaScript objects
 }
 
 async function getStringForPin(string) {
     let url = getBackendHost() + '/pin';
-    const response = await fetch(url, Object.assign({
+    let initOptions = Object.assign({
         body: string
-    }, Globals.fetchAjaxOptions));
+    }, Globals.fetchAjaxOptions);
+    const response = await fetch(url, initOptions);
     return response; // parses JSON response into native JavaScript objects
 }
 
