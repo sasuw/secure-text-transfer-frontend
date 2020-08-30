@@ -15,10 +15,22 @@ Globals = {
     }
 };
 
-function getBackendHost(){
+function addAutoResize() {
+    document.querySelectorAll('[data-autoresize]').forEach(function (element) {
+        element.style.boxSizing = 'border-box';
+        var offset = element.offsetHeight - element.clientHeight;
+        element.addEventListener('input', function (event) {
+            event.target.style.height = 'auto';
+            event.target.style.height = event.target.scrollHeight + offset + 'px';
+        });
+        element.removeAttribute('data-autoresize');
+    });
+}
+
+function getBackendHost() {
     let host = window.location.host;
     console.log('host: ' + host);
-    switch(host){
+    switch (host) {
         case 'localhost':
         case 'localhost:8080':
         case '127.0.0.1':
@@ -70,6 +82,8 @@ function main() {
             showPinForString();
         }
     });
+
+    addAutoResize();
 }
 
 function show(elId) {
@@ -245,7 +259,7 @@ function startTimer(duration, display, timerEndFunction) {
 
     let timerFunction = function () {
         try {
-            log('timer: ' + timer);
+            //log('timer: ' + timer);
 
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);

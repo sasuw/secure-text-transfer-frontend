@@ -20,7 +20,19 @@
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
+        textarea {
+            box-sizing: border-box;
+            resize: none;
+        }
 
+        @media (min-width: 850px) {
+            .divider {
+                height: 30vh;
+                width: 0.2rem;
+                background-color: #666666;
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 
@@ -32,46 +44,90 @@
             <div id="title" class="twelve columns">
                 <h1>Secure Text Transfer</h1>
                 <p>Type text to get PIN. Enter PIN to get typed text (on another device). Text is deleted from the
-                    server when it is read with the PIN or within 5 minutes. The entered / transferred texts are never stored permanently.</p>
+                    server when it is read with the PIN or within 5 minutes. The entered / transferred texts are never
+                    stored permanently.</p>
             </div>
-        </div>
         <div class="row" class="ihaveparent">
-            <div id="ihavepin" class="six columns"
-                style="margin-top: 10%; text-align: center; border-right: 1px solid black;">
-                I have a PIN<br><br>
-                <div><input onfocus="focusField(this);" class="u-half-width" type="number" placeholder="PIN"
-                        id="pinInput"></div>
-                <input class="button-primary" type="submit" value="Get text with PIN" onclick="showPwdForPin();">
+            <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
+                <div>I have a text</div>
+                <div>
+                    <textarea class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
+                        placeholder="String" id="pwdInput"></textarea>
+                </div>
+                <div>
+                    <input class="button-primary" type="submit" value="Store and get PIN" onclick="showPinForString();">
+                </div>
             </div>
-            <div id="igotpwd" class="six columns"
-                style="margin-top: 10%; margin-left: 0; text-align: center; border-right: 1px solid black; display:none;">
-                <div id="stringStart" style="visibility: unset;">Your text is</div>
-                <div id="pwdValue" style="font-size: 2em; height: 43px;">?</div>
-                <!--
-                    <div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
-                    <div style="height: 34px; display: none;" id="pwdHintPlaceHolder"></div>
-                    -->
-                <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
-                <input class="button-primary" type="submit" value="Got it" id="gotitPwd" onclick="gotItPwd();"><br>
-            </div>
-            <div id="ihavepwd" class="six columns"
-                style="margin-top: 10%; text-align: center; border-left: 1px solid black;">
-                I have a text<br><br>
-                <div><input onfocus="focusField(this);" class="u-half-width" type="text" placeholder="String"
-                        id="pwdInput"></div>
-                <input class="button-primary" type="submit" value="Store and get PIN" onclick="showPinForString();"><br>
-            </div>
-            <div id="igotpin" class="six columns"
-                style="margin-top: 10%; text-align: center; border-left: 1px solid black; display:none;">
-                Your PIN is<br>
+            <div id="igotpin" class="five columns" style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
+                <div>Your PIN is</div>
                 <div id="pinValue" style="font-size: 2em; height: 43px;">?</div>
                 <div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
-                <div style="height: 34px;" id="pinHint">The PIN can be used for the next <span id="time">05:00</span>
+                <div style="height: 34px;" id="pinHint">PIN valid <span id="time">05:00</span>
                     minutes</div>
-                <input class="button-primary" type="submit" value="Got it" id="gotitPin" onclick="gotItPin();"><br>
+                <div>
+                    <input class="button-primary" type="submit" value="Got it" id="gotitPin" onclick="gotItPin();">
+                </div>
+            </div>
+
+            <div id="divider" class="one column" style="margin-top: 3%; text-align: center;">
+                <div class="divider">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
+                <div>I have a PIN</div>
+                <div>
+                    <textarea class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
+                        placeholder="PIN" id="pinInput"></textarea>
+                </div>
+                <div>
+                    <input class="button-primary" type="submit" value="Get text with PIN" onclick="showPwdForPin();">
+                </div>
+            </div>
+            <div id="igotpwd" class="five columns" style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
+                <div id="stringStart" style="visibility: unset;">Your text is</div>
+                <div id="pwdValue" style="font-size: 2em; min-height: 43px; overflow: hidden;">?</div>
+                <!--
+                <div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
+                <div style="height: 34px; display: none;" id="pwdHintPlaceHolder"></div>
+                -->
+                <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
+                <div>
+                    <input class="button-primary" type="submit" value="Got it" id="gotitPwd" onclick="gotItPwd();">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer start -->
+    <div class="container" style="width: auto;">
+        <div class="row">
+            <div class="eleven columns">
+                <hr style="margin-top: 1rem; margin-bottom: 1.5rem">
+            </div>
+        </div>
+        <div class="row">
+            <div class="two columns">
+                &nbsp;
+            </div>
+            <div class="three columns">
+                &nbsp;
+            </div>
+            <div class="one column" style="text-align: center;">
+                <a href="https://github.com/sasuw/securestringtransfer-frontend"><img src="images/github.svg"
+                        title="Link to Github" alt="Source code, link to Github" style="width: 20px; height: 20px;"></a>
+            </div>
+            <div class="three columns">
+                &nbsp;
+            </div>
+            <div class="two columns">
+                &nbsp;
             </div>
         </div>
     </div>
+    <!-- Footer end -->
+
     <!-- End Document
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="js/main.js"></script>
