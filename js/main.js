@@ -160,8 +160,9 @@ function showPwdForPin(pin) {
     getStringForPin(pinInput.value).then(response => {
         try {
             if (response.status === 204) {
-                let pwdValue = document.getElementById('pwdValue');
-                pwdValue.innerHTML = '<span style="color: red">No text found with given PIN</span>';
+                let pwdValueSpan = document.getElementById('pwdValue');
+                pwdValueSpan.style.color = 'red';
+                pwdValueSpan.innerText= 'No text found with given PIN';
                 hide('stringStart');
             } else {
                 response.text().then(data => {
