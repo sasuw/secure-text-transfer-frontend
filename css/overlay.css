@@ -5,7 +5,7 @@
     width: 100%;
     z-index: 1;
     height: 100%;
-    display: block;
+    display: none;
 }
 
 #overlay div {
@@ -43,9 +43,34 @@
 }
 
 #overlayContainer{
-    padding-top: 2em;
+    padding-top: 1em;
     height: 50vh;
     overflow-y: auto;
     overflow-x: none;
     color: black;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+#ocTitle {
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #267077;
+}
+
+#ochint {
+    margin-bottom: 2rem;
+    line-height: 1.1em !important;
+    color: #428D94;
+}
+
+#ocButtonContainer {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+#overlayContainer p {
+    line-height: 1.3em !important;
 }

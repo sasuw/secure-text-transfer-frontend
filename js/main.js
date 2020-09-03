@@ -166,7 +166,8 @@ function showPwdForPin(pin) {
                 hide('stringStart');
             } else {
                 response.text().then(data => {
-                    document.getElementById('pwdValue').innerText = data;
+                    showTextInOverlay(data);
+                    //document.getElementById('pwdValue').innerText = data;
                 });
             }
         } catch (error) {
