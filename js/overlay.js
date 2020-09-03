@@ -37,4 +37,11 @@ function ocClose() {
 function showTextInOverlay(text) {
 	document.getElementById('ocp').innerText = text;
 	show('overlay');
+
+	let transparentGif = document.getElementById('tg');
+	let overlayContainer = document.getElementById('overlayContainer');
+	let tgIsVisible = isElementVisible(transparentGif, overlayContainer); //text is so long that we need a bottom row of buttons
+	if(!tgIsVisible){
+		show('ocButtonContainerBottom');
+	}
 }

@@ -39,12 +39,12 @@
 
 <body onload="main()">
 
-    <div id="overlay" style="display: none;">
+    <div id="overlay" style="display: none;">document.getElementById('tg');
 
         <div id="overlayContainer" ondblclick="selectText('ocp')">
             <h3 id="ocTitle">Your text</h3>
             <em id="ochint">This text cannot be retrieved again, so please copy it before closing, if you need it</em>
-            <span id="ocButtonContainer">
+            <span id="ocButtonContainerTop" style="display: block;">
                 <button class="button-primary" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
                     text</button>
                 <button class="button-primary" onclick="ocClose()" title="Close overlay">Close</button>
@@ -91,11 +91,12 @@
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
                 Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their
                 exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-            <span id="ocButtonContainer">
+            <span id="ocButtonContainerBottom" style="display: none;">
                 <button class="button-primary" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
                     text</button>
                 <button class="button-primary" onclick="ocClose()" title="Close overlay">Close</button>
             </span>
+            <img id="tg" src="images/Transparent.gif">
         </div>
         <div class="background"></div>
     </div>
@@ -198,6 +199,8 @@
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <script src="js/main.js"></script>
         <script src="js/overlay.js"></script>
+        <script src="js/display.js"></script>
+        <script src="js/timer.js"></script>
         <script>
             function on() {
                 document.getElementById("overlay").style.display = "block";

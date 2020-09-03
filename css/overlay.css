@@ -65,8 +65,14 @@
     color: #428D94;
 }
 
-#ocButtonContainer {
+#ocButtonContainerTop {
     display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+#ocButtonContainerBottom {
+    display: none;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }

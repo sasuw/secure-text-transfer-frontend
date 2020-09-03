@@ -86,32 +86,6 @@ function main() {
     addAutoResize();
 }
 
-function show(elId) {
-    let el = document.getElementById(elId);
-    if (el == null || el.style == null) {
-        log('No element with id ' + elId + ' found');
-        return;
-    }
-    if (el.style.visibility === 'hidden') {
-        el.style.visibility = 'unset';
-    } else if (el.style.display === 'none') {
-        el.style.display = 'block';
-    }
-}
-
-function hide(elId) {
-    let el = document.getElementById(elId);
-    if (el == null || el.style == null) {
-        log('No element with id ' + elId + ' found');
-        return;
-    }
-    if (el.style.visibility === 'unset') {
-        el.style.visibility = 'hidden';
-    } else if (el.style.display === 'block' || el.style.display === '') {
-        el.style.display = 'none';
-    }
-}
-
 function showPinForString() {
     try {
         let pwdInput = document.getElementById('pwdInput');
@@ -254,32 +228,4 @@ function gotItPwd() {
     show('stringStart');
 
     clearInterval(Globals.intervalId);
-}
-
-function startTimer(duration, display, timerEndFunction) {
-    var timer = duration, minutes, seconds;
-
-    let timerFunction = function () {
-        try {
-            //log('timer: ' + timer);
-
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                log('timerFunction end reached');
-                timerEndFunction();
-                clearInterval(Globals.intervalId);
-            }
-        } catch (error) {
-            log('error: ' + error);
-        }
-    };
-    timerFunction();
-    Globals.intervalId = setInterval(timerFunction, 1000);
 }
