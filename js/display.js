@@ -37,3 +37,7 @@ function hide(elId) {
         el.style.display = 'none';
     }
 }
+
+function dgel(elId){
+    return document.getElementById(elId);
+}

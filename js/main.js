@@ -68,8 +68,8 @@ function main() {
 
     document.getElementById('time').innerText = getInitialTimeString();
 
-    let pwdInput = document.getElementById('pwdInput');
-    Globals.inputBorderColor = pwdInput.style.borderColor;
+    let textField = document.getElementById('textField');
+    Globals.inputBorderColor = textField.style.borderColor;
 
     document.getElementById('pinInput').addEventListener('keyup', function onEvent(e) {
         if (e.keyCode === 13) {
@@ -77,7 +77,7 @@ function main() {
         }
     });
 
-    document.getElementById('pwdInput').addEventListener('keyup', function onEvent(e) {
+    document.getElementById('textField').addEventListener('keyup', function onEvent(e) {
         if (e.keyCode === 13) {
             showPinForString();
         }
@@ -88,9 +88,9 @@ function main() {
 
 function showPinForString() {
     try {
-        let pwdInput = document.getElementById('pwdInput');
-        if (pwdInput.value.length === 0) {
-            pwdInput.style.borderColor = '#ff0000';
+        let textField = document.getElementById('textField');
+        if (textField.value.length === 0) {
+            textField.style.borderColor = '#ff0000';
             return;
         }
 
@@ -101,7 +101,7 @@ function showPinForString() {
 
         startTimer(getInitialTimeInSeconds(), document.getElementById('time'), pinTimeExpired);
 
-        getPinForString(pwdInput.value).then(response => {
+        getPinForString(textField.value).then(response => {
             try {
                 if (response.status !== 200) {
                     log.error('getPinForString error with status code ' + response.status);
@@ -140,6 +140,7 @@ function showPwdForPin(pin) {
                 hide('stringStart');
             } else {
                 response.text().then(data => {
+                    showTextPreview(data);
                     showTextInOverlay(data);
                     //document.getElementById('pwdValue').innerText = data;
                 });
@@ -148,6 +149,21 @@ function showPwdForPin(pin) {
             log('Error 2: ' + error);
         }
     });
+}
+
+function showText(){
+    showTextInOverlay();
+}
+
+function clearText(){
+    window.location.reload();
+}
+
+function showTextPreview(text){
+    if(text.length > 20){
+        text = text.substr(0, 30) + "&hellip;";
+    }
+    dgel('pwdValue').innerHTML = text;
 }
 
 function focusField(field) {
@@ -209,7 +225,7 @@ function pinTimeExpired() {
 }
 
 function gotItPin() {
-    document.getElementById('pwdInput').value = '';
+    document.getElementById('textField').value = '';
 
     show('ihavepwd');
     hide('igotpin');

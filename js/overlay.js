@@ -35,8 +35,26 @@ function ocClose() {
 }
 
 function showTextInOverlay(text) {
+	if(text == null){
+		text = document.getElementById('ocp').innerText;
+	}
+
 	document.getElementById('ocp').innerText = text;
 	show('overlay');
+
+	//dynamic size adjustment
+	/*
+	if(text.length > 500){
+		let oc = dgel('overlayContainer');
+		if(text.length < 1000){
+			oc.style.width = '30vw';
+			oc.style.height = '60vh';
+		}else{
+			oc.style.width = '40vw';
+			oc.style.height = '80vh';
+		}
+	}
+	*/
 
 	let transparentGif = document.getElementById('tg');
 	let overlayContainer = document.getElementById('overlayContainer');

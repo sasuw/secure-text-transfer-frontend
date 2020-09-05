@@ -26,6 +26,24 @@
             resize: none;
         }
 
+        #textField{
+            border: 2px solid blue;
+        }
+
+        @media (max-width: 850px) {
+            #intro{
+                line-height: initial;
+            }
+
+            .divider {
+                height: 0;
+            }
+
+            #footerHrRow{
+                display: none;
+            }
+        }
+
         @media (min-width: 850px) {
             .divider {
                 height: 30vh;
@@ -33,24 +51,41 @@
                 background-color: #666666;
                 margin: 0 auto;
             }
+
+            #pinFieldContainerParent{
+                border: 2px solid #ada;
+                margin-bottom: 22px;
+                border-radius: 5px;
+            }
+
+            #pinFieldContainer{
+                height: 65px; 
+            }
+            
+            #pinFieldContainer input{
+                margin-top:14px;
+            }
+            
         }
     </style>
 </head>
 
 <body onload="main()">
 
-    <div id="overlay" style="display: none;">document.getElementById('tg');
+    <div id="overlay" style="display: none;">
 
         <div id="overlayContainer" ondblclick="selectText('ocp')">
-            <h3 id="ocTitle">Your text</h3>
+            <!--
+            <h3 id="ocTitle">Your text</h3> 
             <em id="ochint">This text cannot be retrieved again, so please copy it before closing, if you need it</em>
+            -->
             <span id="ocButtonContainerTop" style="display: block;">
                 <button class="button-primary" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
                     text</button>
                 <button class="button-primary" onclick="ocClose()" title="Close overlay">Close</button>
             </span>
             <hr style="margin-top: 0.1rem; margin-bottom: 0.8rem;">
-            <p id="ocp" ondblclick="selectText('ocp')">
+            <p id="ocp" ondblclick="selectText('ocp')">document.getElementById('tg');
 
                 Where does it come from?
                 Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
@@ -86,7 +121,7 @@
                 undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
                 Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the
                 theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor
-                sit amet..", comes from a line in section 1.10.32.
+                sit amet..", comes from a line in secheight: 65px; margin-bottom: 7px; margin-top: 15px;tion 1.10.32.
 
                 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
                 Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their
@@ -103,9 +138,9 @@
 
     <div class="container">
         <div class="row" class="ihaveparent" style="margin-top: 5%; text-align: center;">
-            <div id="title" class="twelve columns">
+            <div id="title" class="eleven columns">
                 <h1>Secure Text Transfer</h1>
-                <p>Type text to get PIN. Enter PIN to get typed text (on another device). Text is deleted from the
+                <p id="intro">Type text to get PIN. Enter PIN to get typed text (on another device). Text is deleted from the
                     server when it is read with the PIN or within 5 minutes. The entered / transferred texts are never
                     stored permanently.</p>
             </div>
@@ -113,11 +148,11 @@
                 <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
                     <div>I have a text</div>
                     <div>
-                        <textarea class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
-                            placeholder="Text" id="pwdInput"></textarea>
+                        <textarea id="textField" class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
+                            placeholder="Text" id="pwdInput" autocomplete="off"></textarea>
                     </div>
                     <div>
-                        <input class="button-primary" type="submit" value="Store and get PIN"
+                        <input id="textSubmitButton" class="button-primary" type="submit" value="Store and get PIN"
                             onclick="showPinForString();">
                     </div>
                 </div>
@@ -141,9 +176,11 @@
 
                 <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
                     <div>I have a PIN</div>
-                    <div>
-                        <textarea class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
-                            placeholder="PIN" id="pinInput"></textarea>
+                    <div id="pinFieldContainerParent">
+                        <div id="pinFieldContainer">
+                            <input type="number" onfocus="focusField(this);"
+                            placeholder="PIN" id="pinInput" autocomplete="off" class="u-half-width">
+                        </div>
                     </div>
                     <div>
                         <input class="button-primary" type="submit" value="Get text with PIN"
@@ -153,14 +190,11 @@
                 <div id="igotpwd" class="five columns"
                     style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
                     <div id="stringStart" style="visibility: unset;">Your text is</div>
-                    <div style="font-size: 2em; min-height: 43px; overflow: hidden;"><span id="pwdValue">?</span></div>
-                    <!--
-                <div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
-                <div style="height: 34px; display: none;" id="pwdHintPlaceHolder"></div>
-                -->
+                    <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue">?</span></div>
                     <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
                     <div>
-                        <input class="button-primary" type="submit" value="Got it" id="gotitPwd" onclick="gotItPwd();">
+                        <input class="button-primary" type="submit" value="Show text" id="showText" onclick="showText();">
+                        <input class="button-primary" type="submit" value="Clear" id="clearText" onclick="clearText();">
                     </div>
                 </div>
 
@@ -168,7 +202,7 @@
         </div>
         <!-- Footer start -->
         <div class="container" style="width: auto;">
-            <div class="row">
+            <div class="row" id="footerHrRow">
                 <div class="eleven columns">
                     <hr style="margin-top: 1rem; margin-bottom: 1.5rem">
                 </div>

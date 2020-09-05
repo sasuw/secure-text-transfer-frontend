@@ -16,10 +16,8 @@
     background-color: #FFFFFF;
     border-radius: 5px;
     color: #333;
-    width: 60vw;
     z-index: 3;
     /* top: 50%; */
-    height: 60vh;
     margin: auto;
     top: 0;
     bottom: 0;
@@ -44,7 +42,10 @@
 
 #overlayContainer{
     padding-top: 1em;
+    width: 80vw;
     height: 50vh;
+    max-width: 600px;
+    max-height: 400px;
     overflow-y: auto;
     overflow-x: none;
     color: black;
@@ -52,6 +53,14 @@
     padding-left: 1em;
     padding-right: 1em;
 }
+
+/*
+@media screen and (orientation: portrait) { 
+    #overlayContainer{
+        width: 60vw;
+    }
+}
+*/
 
 #ocTitle {
     margin-bottom: 0;
@@ -79,4 +88,11 @@
 
 #overlayContainer p {
     line-height: 1.3em !important;
+    margin-bottom: 0;
 }
+
+/*
+img #tg{
+    display: block;
+}
+*/
