@@ -27,7 +27,16 @@ function ocCopy() {
 	window.getSelection().removeAllRanges(); // clear current selection
 	window.getSelection().addRange(range); // to select text
 	document.execCommand('copy');
-	window.getSelection().removeAllRanges();// to deselect
+
+	var copyButtonEl = document.getElementById('copyButton');
+	copyButtonEl.innerHTML = ' <strong>Copied</strong>';
+	window.setTimeout(function () {
+		window.getSelection().removeAllRanges();// to deselect
+	}, 1000);
+	window.setTimeout(function () {
+		copyButtonEl.innerHTML = ' Copy';
+	}, 3000);
+
 }
 
 function ocClose() {
@@ -35,7 +44,7 @@ function ocClose() {
 }
 
 function showTextInOverlay(text) {
-	if(text == null){
+	if (text == null) {
 		text = document.getElementById('ocp').innerText;
 	}
 
@@ -59,7 +68,7 @@ function showTextInOverlay(text) {
 	let transparentGif = document.getElementById('tg');
 	let overlayContainer = document.getElementById('overlayContainer');
 	let tgIsVisible = isElementVisible(transparentGif, overlayContainer); //text is so long that we need a bottom row of buttons
-	if(!tgIsVisible){
+	if (!tgIsVisible) {
 		show('ocButtonContainerBottom');
 	}
 }

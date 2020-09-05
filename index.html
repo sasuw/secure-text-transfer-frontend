@@ -80,7 +80,7 @@
             <em id="ochint">This text cannot be retrieved again, so please copy it before closing, if you need it</em>
             -->
             <span id="ocButtonContainerTop" style="display: block;">
-                <button class="button-primary" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
+                <button class="button-primary" id="copyButton" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
                     text</button>
                 <button class="button-primary" onclick="ocClose()" title="Close overlay">Close</button>
             </span>
@@ -150,7 +150,7 @@
                 <div id="igotpwd" class="five columns"
                     style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
                     <div id="stringStart" style="visibility: unset;">Your text is</div>
-                    <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue">?</span></div>
+                    <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue"></span></div>
                     <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
                     <div>
                         <input class="button-primary" type="submit" value="Show text" id="showText" onclick="showText();">
