@@ -68,8 +68,8 @@ function main() {
 
     document.getElementById('time').innerText = getInitialTimeString();
 
-    let pwdInput = document.getElementById('pwdInput');
-    Globals.inputBorderColor = pwdInput.style.borderColor;
+    let textField = document.getElementById('textField');
+    Globals.inputBorderColor = textField.style.borderColor;
 
     document.getElementById('pinInput').addEventListener('keyup', function onEvent(e) {
         if (e.keyCode === 13) {
@@ -77,7 +77,7 @@ function main() {
         }
     });
 
-    document.getElementById('pwdInput').addEventListener('keyup', function onEvent(e) {
+    document.getElementById('textField').addEventListener('keyup', function onEvent(e) {
         if (e.keyCode === 13) {
             showPinForString();
         }
@@ -86,37 +86,11 @@ function main() {
     addAutoResize();
 }
 
-function show(elId) {
-    let el = document.getElementById(elId);
-    if (el == null || el.style == null) {
-        log('No element with id ' + elId + ' found');
-        return;
-    }
-    if (el.style.visibility === 'hidden') {
-        el.style.visibility = 'unset';
-    } else if (el.style.display === 'none') {
-        el.style.display = 'block';
-    }
-}
-
-function hide(elId) {
-    let el = document.getElementById(elId);
-    if (el == null || el.style == null) {
-        log('No element with id ' + elId + ' found');
-        return;
-    }
-    if (el.style.visibility === 'unset') {
-        el.style.visibility = 'hidden';
-    } else if (el.style.display === 'block' || el.style.display === '') {
-        el.style.display = 'none';
-    }
-}
-
 function showPinForString() {
     try {
-        let pwdInput = document.getElementById('pwdInput');
-        if (pwdInput.value.length === 0) {
-            pwdInput.style.borderColor = '#ff0000';
+        let textField = document.getElementById('textField');
+        if (textField.value.length === 0) {
+            textField.style.borderColor = '#ff0000';
             return;
         }
 
@@ -127,7 +101,7 @@ function showPinForString() {
 
         startTimer(getInitialTimeInSeconds(), document.getElementById('time'), pinTimeExpired);
 
-        getPinForString(pwdInput.value).then(response => {
+        getPinForString(textField.value).then(response => {
             try {
                 if (response.status !== 200) {
                     log.error('getPinForString error with status code ' + response.status);
@@ -160,18 +134,36 @@ function showPwdForPin(pin) {
     getStringForPin(pinInput.value).then(response => {
         try {
             if (response.status === 204) {
-                let pwdValue = document.getElementById('pwdValue');
-                pwdValue.innerHTML = '<span style="color: red">No text found with given PIN</span>';
+                let pwdValueSpan = document.getElementById('pwdValue');
+                pwdValueSpan.style.color = 'red';
+                pwdValueSpan.innerText= 'No text found with given PIN';
                 hide('stringStart');
             } else {
                 response.text().then(data => {
-                    document.getElementById('pwdValue').innerText = data;
+                    showTextPreview(data);
+                    showTextInOverlay(data);
+                    //document.getElementById('pwdValue').innerText = data;
                 });
             }
         } catch (error) {
             log('Error 2: ' + error);
         }
     });
+}
+
+function showText(){
+    showTextInOverlay();
+}
+
+function clearText(){
+    window.location.reload();
+}
+
+function showTextPreview(text){
+    if(text.length > 20){
+        text = text.substr(0, 30) + "&hellip;";
+    }
+    dgel('pwdValue').innerHTML = text;
 }
 
 function focusField(field) {
@@ -233,7 +225,7 @@ function pinTimeExpired() {
 }
 
 function gotItPin() {
-    document.getElementById('pwdInput').value = '';
+    document.getElementById('textField').value = '';
 
     show('ihavepwd');
     hide('igotpin');
@@ -252,32 +244,4 @@ function gotItPwd() {
     show('stringStart');
 
     clearInterval(Globals.intervalId);
-}
-
-function startTimer(duration, display, timerEndFunction) {
-    var timer = duration, minutes, seconds;
-
-    let timerFunction = function () {
-        try {
-            //log('timer: ' + timer);
-
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                log('timerFunction end reached');
-                timerEndFunction();
-                clearInterval(Globals.intervalId);
-            }
-        } catch (error) {
-            log('error: ' + error);
-        }
-    };
-    timerFunction();
-    Globals.intervalId = setInterval(timerFunction, 1000);
 }

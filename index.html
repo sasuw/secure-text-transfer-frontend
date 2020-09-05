@@ -14,6 +14,7 @@
     <!-- CSS
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link media="screen" rel="stylesheet" href="css/normalize.css">
+    <link media="screen" rel="stylesheet" href="css/overlay.css">
     <link media="screen" rel="stylesheet" href="css/skeleton.css">
     <link media="screen" rel="stylesheet" href="css/fonts.css">
     <!-- Favicon
@@ -25,6 +26,24 @@
             resize: none;
         }
 
+        #textField{
+            border: 2px solid blue;
+        }
+
+        @media (max-width: 850px) {
+            #intro{
+                line-height: initial;
+            }
+
+            .divider {
+                height: 0;
+            }
+
+            #footerHrRow{
+                display: none;
+            }
+        }
+
         @media (min-width: 850px) {
             .divider {
                 height: 30vh;
@@ -32,105 +51,159 @@
                 background-color: #666666;
                 margin: 0 auto;
             }
+
+            #pinFieldContainerParent{
+                border: 2px solid #ada;
+                margin-bottom: 22px;
+                border-radius: 5px;
+            }
+
+            #pinFieldContainer{
+                height: 65px; 
+            }
+
+            #pinFieldContainer input{
+                margin-top:14px;
+            }
+            
         }
     </style>
 </head>
 
 <body onload="main()">
-    <!-- Primary Page Layout
-            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <div id="overlay" style="display: none;">
+
+        <div id="overlayContainer" ondblclick="selectText('ocp')">
+            <!--
+            <h3 id="ocTitle">Your text</h3> 
+            <em id="ochint">This text cannot be retrieved again, so please copy it before closing, if you need it</em>
+            -->
+            <span id="ocButtonContainerTop" style="display: block;">
+                <button class="button-primary" id="copyButton" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
+                    text</button>
+                <button class="button-primary" onclick="ocClose()" title="Close overlay">Close</button>
+            </span>
+            <hr style="margin-top: 0.1rem; margin-bottom: 0.8rem;">
+            <p id="ocp" ondblclick="selectText('ocp')"></p>
+            <span id="ocButtonContainerBottom" style="display: none;">
+                <button class="button-primary" onclick="ocCopy()" title="Copy complete text to clipboard">Copy
+                    text</button>
+                <button class="button-primary" onclick="ocClose()" title="Close overlay">Close</button>
+            </span>
+            <img id="tg" src="images/Transparent.gif">
+        </div>
+        <div class="background"></div>
+    </div>
+
     <div class="container">
         <div class="row" class="ihaveparent" style="margin-top: 5%; text-align: center;">
-            <div id="title" class="twelve columns">
+            <div id="title" class="eleven columns">
                 <h1>Secure Text Transfer</h1>
-                <p>Type text to get PIN. Enter PIN to get typed text (on another device). Text is deleted from the
+                <p id="intro">Type text to get PIN. Enter PIN to get typed text (on another device). Text is deleted from the
                     server when it is read with the PIN or within 5 minutes. The entered / transferred texts are never
                     stored permanently.</p>
             </div>
-        <div class="row" class="ihaveparent">
-            <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
-                <div>I have a text</div>
-                <div>
-                    <textarea class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
-                        placeholder="Text" id="pwdInput"></textarea>
+            <div class="row" class="ihaveparent">
+                <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
+                    <div>I have a text</div>
+                    <div>
+                        <textarea id="textField" class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
+                            placeholder="Text" id="pwdInput" autocomplete="off"></textarea>
+                    </div>
+                    <div>
+                        <input id="textSubmitButton" class="button-primary" type="submit" value="Store and get PIN"
+                            onclick="showPinForString();">
+                    </div>
                 </div>
-                <div>
-                    <input class="button-primary" type="submit" value="Store and get PIN" onclick="showPinForString();">
+                <div id="igotpin" class="five columns"
+                    style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
+                    <div>Your PIN is</div>
+                    <div id="pinValue" style="font-size: 2em; height: 43px;">?</div>
+                    <div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
+                    <div style="height: 34px;" id="pinHint">PIN valid <span id="time">05:00</span>
+                        minutes</div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Got it" id="gotitPin" onclick="gotItPin();">
+                    </div>
                 </div>
-            </div>
-            <div id="igotpin" class="five columns" style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
-                <div>Your PIN is</div>
-                <div id="pinValue" style="font-size: 2em; height: 43px;">?</div>
-                <div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
-                <div style="height: 34px;" id="pinHint">PIN valid <span id="time">05:00</span>
-                    minutes</div>
-                <div>
-                    <input class="button-primary" type="submit" value="Got it" id="gotitPin" onclick="gotItPin();">
-                </div>
-            </div>
 
-            <div id="divider" class="one column" style="margin-top: 3%; text-align: center;">
-                <div class="divider">
+                <div id="divider" class="one column" style="margin-top: 3%; text-align: center;">
+                    <div class="divider">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
+                    <div>I have a PIN</div>
+                    <div id="pinFieldContainerParent">
+                        <div id="pinFieldContainer">
+                            <input type="number" onfocus="focusField(this);"
+                            placeholder="PIN" id="pinInput" autocomplete="off" class="u-half-width">
+                        </div>
+                    </div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Get text with PIN"
+                            onclick="showPwdForPin();">
+                    </div>
+                </div>
+                <div id="igotpwd" class="five columns"
+                    style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
+                    <div id="stringStart" style="visibility: unset;">Your text is</div>
+                    <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue"></span></div>
+                    <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Show text" id="showText" onclick="showText();">
+                        <input class="button-primary" type="submit" value="Clear" id="clearText" onclick="clearText();">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Footer start -->
+        <div class="container" style="width: auto;">
+            <div class="row" id="footerHrRow">
+                <div class="eleven columns">
+                    <hr style="margin-top: 1rem; margin-bottom: 1.5rem">
+                </div>
+            </div>
+            <div class="row">
+                <div class="two columns">
+                    &nbsp;
+                </div>
+                <div class="three columns">
+                    &nbsp;
+                </div>
+                <div class="one column" style="text-align: center;">
+                    <a href="https://github.com/sasuw/securestringtransfer-frontend"><img src="images/github.svg"
+                            title="Link to Github" alt="Source code, link to Github"
+                            style="width: 20px; height: 20px;"></a>
+                </div>
+                <div class="three columns">
+                    &nbsp;
+                </div>
+                <div class="two columns">
                     &nbsp;
                 </div>
             </div>
-
-            <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
-                <div>I have a PIN</div>
-                <div>
-                    <textarea class="u-full-width" data-autoresize rows="1" onfocus="focusField(this);"
-                        placeholder="PIN" id="pinInput"></textarea>
-                </div>
-                <div>
-                    <input class="button-primary" type="submit" value="Get text with PIN" onclick="showPwdForPin();">
-                </div>
-            </div>
-            <div id="igotpwd" class="five columns" style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
-                <div id="stringStart" style="visibility: unset;">Your text is</div>
-                <div id="pwdValue" style="font-size: 2em; min-height: 43px; overflow: hidden;">?</div>
-                <!--
-                <div style="height: 34px;" id="pwdHint">The string will display for <span id="time2">xx</span> minutes</div>
-                <div style="height: 34px; display: none;" id="pwdHintPlaceHolder"></div>
-                -->
-                <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
-                <div>
-                    <input class="button-primary" type="submit" value="Got it" id="gotitPwd" onclick="gotItPwd();">
-                </div>
-            </div>
-
         </div>
-    </div>
-    <!-- Footer start -->
-    <div class="container" style="width: auto;">
-        <div class="row">
-            <div class="eleven columns">
-                <hr style="margin-top: 1rem; margin-bottom: 1.5rem">
-            </div>
-        </div>
-        <div class="row">
-            <div class="two columns">
-                &nbsp;
-            </div>
-            <div class="three columns">
-                &nbsp;
-            </div>
-            <div class="one column" style="text-align: center;">
-                <a href="https://github.com/sasuw/securestringtransfer-frontend"><img src="images/github.svg"
-                        title="Link to Github" alt="Source code, link to Github" style="width: 20px; height: 20px;"></a>
-            </div>
-            <div class="three columns">
-                &nbsp;
-            </div>
-            <div class="two columns">
-                &nbsp;
-            </div>
-        </div>
-    </div>
-    <!-- Footer end -->
+        <!-- Footer end -->
 
-    <!-- End Document
+        <!-- End Document
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/overlay.js"></script>
+        <script src="js/display.js"></script>
+        <script src="js/timer.js"></script>
+        <script>
+            function on() {
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            function off() {
+                document.getElementById("overlay").style.display = "none";
+            }
+        </script>
 </body>
 
 </html>
