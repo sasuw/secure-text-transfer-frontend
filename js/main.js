@@ -138,6 +138,7 @@ function showPwdForPin(pin) {
                 pwdValueSpan.style.color = 'red';
                 pwdValueSpan.innerText= 'No text found with given PIN';
                 hide('stringStart');
+                hide('showText');
             } else {
                 response.text().then(data => {
                     showTextPreview(data);
@@ -160,10 +161,12 @@ function clearText(){
 }
 
 function showTextPreview(text){
+    /*
     if(text.length > 20){
         text = text.substr(0, 30) + "&hellip;";
     }
     dgel('pwdValue').innerHTML = text;
+    */
 }
 
 function focusField(field) {
