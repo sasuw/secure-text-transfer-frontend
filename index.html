@@ -117,7 +117,7 @@
                 <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
                     <div>I have a text</div>
                     <div>
-                        <textarea id="textField" class="u-full-width" data-autoresize rows="1"
+                        <textarea id="textField" class="u-full-width" data-autoresize rows="1" maxlength="4000"
                             onfocus="focusField(this);" placeholder="Text" id="pwdInput" autocomplete="off"></textarea>
                     </div>
                     <div>
@@ -128,7 +128,7 @@
                 <div id="igotpin" class="five columns"
                     style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
                     <div>Your PIN is</div>
-                    <div id="pinValue" style="font-size: 2em; height: 43px;">?</div>
+                    <div id="pinValue" style="font-size: 1.5em; height: 43px;"></div>
                     <div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
                     <div style="height: 34px;" id="pinHint">PIN valid <span id="time">05:00</span>
                         minutes</div>

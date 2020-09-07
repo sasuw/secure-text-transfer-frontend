@@ -103,7 +103,13 @@ function showPinForString() {
 
         getPinForString(textField.value).then(response => {
             try {
-                if (response.status !== 200) {
+                if (response.status === 413) {
+                    //payload too large
+                    let pinValue = document.getElementById('pinValue');
+                    pinValue.innerText = 'Text too long, max 4000 chars';
+                    pinValue.style.color = 'red';
+                    hide('pinHint');
+                } else if (response.status !== 200) {
                     log.error('getPinForString error with status code ' + response.status);
                 } else {
                     response.text().then(data => {
