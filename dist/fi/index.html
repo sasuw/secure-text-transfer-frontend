@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{bcp47langTag}}">
 
 <head>
     <!-- Basic Page Needs
             –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8">
-    <title>Secure Transient Transfer | send stuff securely from one device to another without registration</title>
+    <title>Secure Transient Transfer | lähetä tietoa laittesta toiseen ilman rekisteröitymistä</title>
     <meta name="description"
-        content="Send passwords and other text snippets from one device to another, securely and easily.">
+        content="Lähetä salasana tai mikä tahansa muu tekstinpätkä laitteesta toiseen, turvallisesti ja helposti.">
     <meta name="author" content="">
 
     <!-- Mobile Specific Metas
@@ -40,14 +40,14 @@
             -->
             <span id="ocButtonContainerTop" style="display: block;">
                 <button class="button-primary" id="copyButton" onclick="ocCopy()"
-                    title="Copy complete text to clipboard">Copy text</button>
-                <button class="button-primary" onclick="ocClose()" title="Close">Close</button>
+                    title="Kopioi teksti leikepöytään">Kopioi</button>
+                <button class="button-primary" onclick="ocClose()" title="Sulje">Sulje</button>
             </span>
             <hr style="margin-top: 0.1rem; margin-bottom: 0.8rem;">
             <p id="ocp" ondblclick="selectText('ocp')"></p>
             <span id="ocButtonContainerBottom" style="display: none;">
-                <button class="button-primary" onclick="ocCopy()" title="Copy complete text to clipboard">Copy text</button>
-                <button class="button-primary" onclick="ocClose()" title="Close">Close</button>
+                <button class="button-primary" onclick="ocCopy()" title="Kopioi teksti leikepöytään">Kopioi</button>
+                <button class="button-primary" onclick="ocClose()" title="Sulje">Sulje</button>
             </span>
             <img id="tg" src="images/Transparent.gif"> 
         </div>
@@ -58,29 +58,29 @@
         <div class="row" class="ihaveparent" style="margin-top: 5%; text-align: center;">
             <div id="title" class="eleven columns">
                 <h1>Secure Transient Transfer</h1>
-                <p id="intro">Type text to get PIN. Enter PIN to get typed text (on another device). Text is deleted from the server when it is read with the PIN or within 5 minutes. The entered / transferred texts are never stored permanently.</p>
+                <p id="intro">Kirjoita teksti, saat PIN-koodin. PIN-koodilla voit noutaa tekstin (toiselle) laitteellesi. Teksti häviää automaattisesti palvelimelta noudettaessa tai viimeistään 5 minuutin kuluttua.</p>
             </div>
             <div class="row" class="ihaveparent">
                 <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
-                    <div>I have a text</div>
+                    <div>Minulla on teksti</div>
                     <div>
                         <textarea id="textField" class="u-full-width" data-autoresize rows="1" maxlength="4000"
-                            onfocus="focusField(this);" placeholder="Text" id="pwdInput" autocomplete="off"></textarea>
+                            onfocus="focusField(this);" placeholder="Teksti" id="pwdInput" autocomplete="off"></textarea>
                     </div>
                     <div>
-                        <input id="textSubmitButton" class="button-primary" type="submit" value="Store and get PIN"
+                        <input id="textSubmitButton" class="button-primary" type="submit" value="Tallenna saadaksesi PIN-koodin"
                             onclick="showPinForString();">
                     </div>
                 </div>
                 <div id="igotpin" class="five columns"
                     style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
-                    <div>Your PIN is</div>
+                    <div>PIN-koodisi on</div>
                     <div id="pinValue" style="font-size: 1.5em; height: 43px;"></div>
-                    <div style="height: 34px; display: none;" id="timeExpired">Your PIN has expired</div>
-                    <div style="height: 34px;" id="pinHint">PIN valid <span id="time">05:00</span>
-                        minutes</div>
+                    <div style="height: 34px; display: none;" id="timeExpired">PIN-koodisi on vanhentunut</div>
+                    <div style="height: 34px;" id="pinHint">PIN on voimassa <span id="time">05:00</span>
+                        minuuttia</div>
                     <div>
-                        <input class="button-primary" type="submit" value="Got it" id="gotitPin" onclick="gotItPin();">
+                        <input class="button-primary" type="submit" value="Selvä" id="gotitPin" onclick="gotItPin();">
                     </div>
                 </div>
 
@@ -91,27 +91,27 @@
                 </div>
 
                 <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
-                    <div>I have a PIN</div>
+                    <div>Minulla on PIN-koodi</div>
                     <div id="pinFieldContainerParent">
                         <div id="pinFieldContainer">
-                            <input type="number" onfocus="focusField(this);" placeholder="PIN" id="pinInput"
+                            <input type="number" onfocus="focusField(this);" placeholder="PIN-koodi" id="pinInput"
                                 autocomplete="off" class="u-half-width">
                         </div>
                     </div>
                     <div>
-                        <input class="button-primary" type="submit" value="Get text with PIN"
+                        <input class="button-primary" type="submit" value="Nouda teksti"
                             onclick="showPwdForPin();">
                     </div>
                 </div>
                 <div id="igotpwd" class="five columns"
                     style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
-                    <div id="stringStart" style="visibility: unset;">Text received</div>
+                    <div id="stringStart" style="visibility: unset;">Teksti vastaanotettu</div>
                     <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue"></span></div>
                     <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
                     <div>
-                        <input class="button-primary" type="submit" value="Show text" id="showText"
+                        <input class="button-primary" type="submit" value="Näytä teksti" id="showText"
                             onclick="showText();">
-                        <input class="button-primary" type="submit" value="clear" id="clearText" onclick="clearText();">
+                        <input class="button-primary" type="submit" value="Aseta takaisin" id="clearText" onclick="clearText();">
                     </div>
                 </div>
 
