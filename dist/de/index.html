@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <!-- Basic Page Needs
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Secure Transient Transfer | versende Zeug von einem Gerät zum anderen ohne Anmeldung</title>
+    <meta name="description"
+        content="Versende Passwörter und andere Textstücke von einem Gerät zu anderem, sicher und bequem.">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- CSS (Skeleton)
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link media="screen" rel="stylesheet" href="css/normalize.css">
+    <link media="screen" rel="stylesheet" href="css/overlay.css">
+    <link media="screen" rel="stylesheet" href="css/skeleton.css">
+    <link media="screen" rel="stylesheet" href="css/fonts.css">
+
+    <!-- CSS (custom) -->
+    <link media="screen" rel="stylesheet" href="css/main.css">
+
+    <!-- Favicon
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body onload="main()">
+
+    <div id="overlay" style="display: none;">
+
+        <div id="overlayContainer" ondblclick="selectText('ocp')">
+            <!--
+            <h3 id="ocTitle">Your text</h3> 
+            <em id="ochint">This text cannot be retrieved again, so please copy it before closing, if you need it</em>
+            -->
+            <span id="ocButtonContainerTop" style="display: block;">
+                <button class="button-primary" id="copyButton" onclick="ocCopy()"
+                    title="Kopiere den Text zur Zwischenablage">Kopieren</button>
+                <button class="button-primary" onclick="ocClose()" title="Schließen">Schließen</button>
+            </span>
+            <hr style="margin-top: 0.1rem; margin-bottom: 0.8rem;">
+            <p id="ocp" ondblclick="selectText('ocp')"></p>
+            <span id="ocButtonContainerBottom" style="display: none;">
+                <button class="button-primary" onclick="ocCopy()" title="Kopiere den Text zur Zwischenablage">Kopieren</button>
+                <button class="button-primary" onclick="ocClose()" title="Schließen">Schließen</button>
+            </span>
+            <img id="tg" src="images/Transparent.gif"> 
+        </div>
+        <div class="background"></div>
+    </div>
+
+    <div class="container">
+        <div class="row" class="ihaveparent" style="margin-top: 5%; text-align: center;">
+            <div id="title" class="eleven columns">
+                <h1>Secure Transient Transfer</h1>
+                <p id="intro">Text eingeben um eine PIN zu bekommen. Mit der PIN kannst du den Text (auf einem anderen Gerät) wieder abholen. Der Text wird automatisch auf dem Server nach der Abholung gelöscht oder spätestens nach 5 Minuten.</p>
+            </div>
+            <div class="row" class="ihaveparent">
+                <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
+                    <div>Ich habe einen Text</div>
+                    <div>
+                        <textarea id="textField" class="u-full-width" data-autoresize rows="1" maxlength="4000"
+                            onfocus="focusField(this);" placeholder="Text" id="pwdInput" autocomplete="off"></textarea>
+                    </div>
+                    <div>
+                        <input id="textSubmitButton" class="button-primary" type="submit" value="Speichern um PIN zu bekommen"
+                            onclick="showPinForString();">
+                    </div>
+                </div>
+                <div id="igotpin" class="five columns"
+                    style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
+                    <div>Deine PIN ist</div>
+                    <div id="pinValue" style="font-size: 1.5em; height: 43px;"></div>
+                    <div style="height: 34px; display: none;" id="timeExpired">Die PIN ist abgelaufen</div>
+                    <div style="height: 34px;" id="pinHint">PIN ist gültig für <span id="time">05:00</span>
+                        Minuten</div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Ok" id="gotitPin" onclick="gotItPin();">
+                    </div>
+                </div>
+
+                <div id="divider" class="one column" style="margin-top: 3%; text-align: center;">
+                    <div class="divider">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
+                    <div>Ich habe eine PIN</div>
+                    <div id="pinFieldContainerParent">
+                        <div id="pinFieldContainer">
+                            <input type="number" onfocus="focusField(this);" placeholder="PIN" id="pinInput"
+                                autocomplete="off" class="u-half-width">
+                        </div>
+                    </div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Text abrufen"
+                            onclick="showPwdForPin();">
+                    </div>
+                </div>
+                <div id="igotpwd" class="five columns"
+                    style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
+                    <div id="stringStart" style="visibility: unset;">Text erhalten</div>
+                    <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue"></span></div>
+                    <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Text anzeigen" id="showText"
+                            onclick="showText();">
+                        <input class="button-primary" type="submit" value="Zurücksetzen" id="clearText" onclick="clearText();">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Footer start -->
+        <div class="container" style="width: auto;">
+            <div class="row" id="footerHrRow">
+                <div class="eleven columns">
+                    <hr style="margin-top: 1rem; margin-bottom: 1.5rem">
+                </div>
+            </div>
+            <div class="row">
+                <div class="two columns">
+                    &nbsp;
+                </div>
+                <div class="three columns">
+                    &nbsp;
+                </div>
+                <div class="one column" style="text-align: center;" id="languageSelector">
+                    <a href="../en/index.html" onclick="setLang('en');">English</a><br>
+                    <a href="../de/index.html" onclick="setLang('de');">Deutsch</a>
+                </div>
+                <div class="three columns">
+                    &nbsp;
+                </div>
+                <div class="two columns">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <!-- Footer end -->
+
+        <!-- End Document
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <script src="js/main.js"></script>
+        <script src="js/overlay.js"></script>
+        <script src="js/display.js"></script>
+        <script src="js/timer.js"></script>
+        <script>
+            function on() {
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            function off() {
+                document.getElementById("overlay").style.display = "none";
+            }
+        </script>
+</body>
+
+</html>

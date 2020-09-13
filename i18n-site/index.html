@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="{{bcp47langTag}}">
+
+<head>
+    <!-- Basic Page Needs
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>{{page.title}}</title>
+    <meta name="description"
+        content="{{meta.description}}">
+    <meta name="author" content="">
+
+    <!-- Mobile Specific Metas
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- CSS (Skeleton)
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link media="screen" rel="stylesheet" href="css/normalize.css">
+    <link media="screen" rel="stylesheet" href="css/overlay.css">
+    <link media="screen" rel="stylesheet" href="css/skeleton.css">
+    <link media="screen" rel="stylesheet" href="css/fonts.css">
+
+    <!-- CSS (custom) -->
+    <link media="screen" rel="stylesheet" href="css/main.css">
+
+    <!-- Favicon
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body onload="main()">
+
+    <div id="overlay" style="display: none;">
+
+        <div id="overlayContainer" ondblclick="selectText('ocp')">
+            <!--
+            <h3 id="ocTitle">Your text</h3> 
+            <em id="ochint">This text cannot be retrieved again, so please copy it before closing, if you need it</em>
+            -->
+            <span id="ocButtonContainerTop" style="display: block;">
+                <button class="button-primary" id="copyButton" onclick="ocCopy()"
+                    title="{{copyButton.title}}">{{overlay.copy}}</button>
+                <button class="button-primary" onclick="ocClose()" title="{{overlay.close}}">{{overlay.close}}</button>
+            </span>
+            <hr style="margin-top: 0.1rem; margin-bottom: 0.8rem;">
+            <p id="ocp" ondblclick="selectText('ocp')"></p>
+            <span id="ocButtonContainerBottom" style="display: none;">
+                <button class="button-primary" onclick="ocCopy()" title="{{copyButton.title}}">{{overlay.copy}}</button>
+                <button class="button-primary" onclick="ocClose()" title="{{overlay.close}}">{{overlay.close}}</button>
+            </span>
+            <img id="tg" src="images/Transparent.gif"> 
+        </div>
+        <div class="background"></div>
+    </div>
+
+    <div class="container">
+        <div class="row" class="ihaveparent" style="margin-top: 5%; text-align: center;">
+            <div id="title" class="eleven columns">
+                <h1>{{page.title.h1}}</h1>
+                <p id="intro">{{page.intro}}</p>
+            </div>
+            <div class="row" class="ihaveparent">
+                <div id="ihavepwd" class="five columns" style="margin-top: 3%; text-align: center; ">
+                    <div>{{text.title}}</div>
+                    <div>
+                        <textarea id="textField" class="u-full-width" data-autoresize rows="1" maxlength="4000"
+                            onfocus="focusField(this);" placeholder="{{text.textarea.placeholder}}" id="pwdInput" autocomplete="off"></textarea>
+                    </div>
+                    <div>
+                        <input id="textSubmitButton" class="button-primary" type="submit" value="{{text.submit}}"
+                            onclick="showPinForString();">
+                    </div>
+                </div>
+                <div id="igotpin" class="five columns"
+                    style="margin-left: 0; margin-top: 3%; text-align: center; display:none;">
+                    <div>{{your.pin.title}}</div>
+                    <div id="pinValue" style="font-size: 1.5em; height: 43px;"></div>
+                    <div style="height: 34px; display: none;" id="timeExpired">{{pin.expired}}</div>
+                    <div style="height: 34px;" id="pinHint">{{pin.valid}} <span id="time">05:00</span>
+                        {{timer.minutes}}</div>
+                    <div>
+                        <input class="button-primary" type="submit" value="{{got.it.button}}" id="gotitPin" onclick="gotItPin();">
+                    </div>
+                </div>
+
+                <div id="divider" class="one column" style="margin-top: 3%; text-align: center;">
+                    <div class="divider">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div id="ihavepin" class="five columns" style="margin-top: 3%; text-align: center;">
+                    <div>{{pin.title}}</div>
+                    <div id="pinFieldContainerParent">
+                        <div id="pinFieldContainer">
+                            <input type="number" onfocus="focusField(this);" placeholder="{{pin.field.placeholder}}" id="pinInput"
+                                autocomplete="off" class="u-half-width">
+                        </div>
+                    </div>
+                    <div>
+                        <input class="button-primary" type="submit" value="{{pin.submit}}"
+                            onclick="showPwdForPin();">
+                    </div>
+                </div>
+                <div id="igotpwd" class="five columns"
+                    style="margin-top: 3%; margin-left: 0; text-align: center; display:none;">
+                    <div id="stringStart" style="visibility: unset;">{{text.received}}</div>
+                    <div style="font-size: 1.5em; min-height: 43px; overflow: hidden;"><span id="pwdValue"></span></div>
+                    <div style="height: 34px; display: block;" id="pwdHintPlaceHolder"></div>
+                    <div>
+                        <input class="button-primary" type="submit" value="{{text.show.button}}" id="showText"
+                            onclick="showText();">
+                        <input class="button-primary" type="submit" value="{{clear.button}}" id="clearText" onclick="clearText();">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Footer start -->
+        <div class="container" style="width: auto;">
+            <div class="row" id="footerHrRow">
+                <div class="eleven columns">
+                    <hr style="margin-top: 1rem; margin-bottom: 1.5rem">
+                </div>
+            </div>
+            <div class="row">
+                <div class="two columns">
+                    &nbsp;
+                </div>
+                <div class="three columns">
+                    &nbsp;
+                </div>
+                <div class="one column" style="text-align: center;" id="languageSelector">
+                    <a href="../en/index.html" onclick="setLang('en');">English</a><br>
+                    <a href="../de/index.html" onclick="setLang('de');">Deutsch</a>
+                </div>
+                <div class="three columns">
+                    &nbsp;
+                </div>
+                <div class="two columns">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <!-- Footer end -->
+
+        <!-- End Document
+            –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <script src="js/main.js"></script>
+        <script src="js/overlay.js"></script>
+        <script src="js/display.js"></script>
+        <script src="js/timer.js"></script>
+        <script>
+            function on() {
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            function off() {
+                document.getElementById("overlay").style.display = "none";
+            }
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+textarea {
+    box-sizing: border-box;
+    resize: none;
+}
+
+#languageSelector{
+    font-size: smaller !important;
+    line-height: initial !important;
+}
+
+#textField {
+    border: 1px solid blue;
+}
+
+#pinInput {
+    border: 1px solid #ada;
+}
+
+@media (max-width: 850px) {
+    #intro {
+        line-height: initial;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    #footerHrRow {
+        display: none;
+    }
+}
+
+@media (min-width: 850px) {
+    .divider {
+        height: 30vh;
+        width: 0.2rem;
+        background-color: #666666;
+        margin: 0 auto;
+    }
+
+    #pinFieldContainerParent {
+        border: 1px solid #eeeeee;
+        margin-bottom: 22px;
+        border-radius: 5px;
+    }
+
+    #pinFieldContainer {
+        height: 65px;
+    }
+
+    #pinFieldContainer input {
+        margin-top: 14px;
+    }
+
+}

@@ -1,4 +1,5 @@
 Globals = {
+    langCookieName: 'lang',
     intervalId: null,
     inputBorderColor: null,
     fetchAjaxOptions: {
@@ -14,6 +15,24 @@ Globals = {
         referrerPolicy: 'no-referrer' // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     }
 };
+
+function setLang(language){
+    setCookie(Globals.langCookieName, language, 1500);
+}
+
+function setCookie (key, value, days) {
+    var date = new Date();
+    days = days || 365;
+
+    // Get unix milliseconds at current time plus number of days
+    date.setTime(+ date + (days * 86400000)); //24 * 60 * 60 * 1000
+    window.document.cookie = key + "=" + value + "; expires=" + date.toGMTString() + "; path=/";
+};
+
+function getCookieValue(a) {
+    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+}
 
 function addAutoResize() {
     document.querySelectorAll('[data-autoresize]').forEach(function (element) {
@@ -220,7 +239,7 @@ function getInitialTimeString() {
 }
 
 function pwdTimeExpired() {
-    document.getElementById('stringStart').innerText = 'Your string has expired';
+    document.getElementById('stringStart').innerText = 'Your text has expired';
     document.getElementById('pwdValue').innerText = '';
     hide('pwdHint');
     document.getElementById('gotitPwd').value = 'Start over';

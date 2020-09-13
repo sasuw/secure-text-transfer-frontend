@@ -29,12 +29,12 @@ function ocCopy() {
 	document.execCommand('copy');
 
 	var copyButtonEl = document.getElementById('copyButton');
-	copyButtonEl.innerHTML = ' <strong>Copied</strong>';
+	copyButtonEl.innerHTML = ' <strong>Kopiert</strong>';
 	window.setTimeout(function () {
 		window.getSelection().removeAllRanges();// to deselect
 	}, 1000);
 	window.setTimeout(function () {
-		copyButtonEl.innerHTML = ' Copy';
+		copyButtonEl.innerHTML = 'Kopieren';
 	}, 3000);
 
 }
