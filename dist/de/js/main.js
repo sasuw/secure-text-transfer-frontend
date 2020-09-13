@@ -50,6 +50,8 @@ function getBackendHost() {
     let host = window.location.host;
     console.log('host: ' + host);
     switch (host) {
+        case 'sttme.net':
+            return 'https://backend.sttme.net';
         case 'localhost':
         case 'localhost:8080':
         case '127.0.0.1':
