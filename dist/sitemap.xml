@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<urlset>
+  <url>
+    <loc>https://example.com/de/index.html</loc>
+    <lastmod>2020-09-13</lastmod>
+    <xhtml:link  rel="alternate" hreflang="de" href="https://example.com/de/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="en" href="https://example.com/en/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="fi" href="https://example.com/fi/index.html"/>
+  </url>
+  <url>
+    <loc>https://example.com/index.html</loc>
+    <lastmod>2020-09-13</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/en/index.html</loc>
+    <lastmod>2020-09-13</lastmod>
+    <xhtml:link  rel="alternate" hreflang="de" href="https://example.com/de/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="en" href="https://example.com/en/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="fi" href="https://example.com/fi/index.html"/>
+  </url>
+  <url>
+    <loc>https://example.com/fi/index.html</loc>
+    <lastmod>2020-09-13</lastmod>
+    <xhtml:link  rel="alternate" hreflang="de" href="https://example.com/de/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="en" href="https://example.com/en/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="fi" href="https://example.com/fi/index.html"/>
+  </url>
+</urlset>
