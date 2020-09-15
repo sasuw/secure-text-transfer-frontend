@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/de/index.html</loc>
+    <loc>https://sttme.net/de/index.html</loc>
     <lastmod>2020-09-13</lastmod>
-    <xhtml:link  rel="alternate" hreflang="de" href="https://example.com/de/index.html"/>
-    <xhtml:link  rel="alternate" hreflang="en" href="https://example.com/en/index.html"/>
-    <xhtml:link  rel="alternate" hreflang="fi" href="https://example.com/fi/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="de" href="https://sttme.net/de/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="en" href="https://sttme.net/en/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="fi" href="https://sttme.net/fi/index.html"/>
   </url>
   <url>
-    <loc>https://example.com/index.html</loc>
+    <loc>https://sttme.net/index.html</loc>
     <lastmod>2020-09-13</lastmod>
   </url>
   <url>
-    <loc>https://example.com/en/index.html</loc>
+    <loc>https://sttme.net/en/index.html</loc>
     <lastmod>2020-09-13</lastmod>
-    <xhtml:link  rel="alternate" hreflang="de" href="https://example.com/de/index.html"/>
-    <xhtml:link  rel="alternate" hreflang="en" href="https://example.com/en/index.html"/>
-    <xhtml:link  rel="alternate" hreflang="fi" href="https://example.com/fi/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="de" href="https://sttme.net/de/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="en" href="https://sttme.net/en/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="fi" href="https://sttme.net/fi/index.html"/>
   </url>
   <url>
-    <loc>https://example.com/fi/index.html</loc>
+    <loc>https://sttme.net/fi/index.html</loc>
     <lastmod>2020-09-13</lastmod>
-    <xhtml:link  rel="alternate" hreflang="de" href="https://example.com/de/index.html"/>
-    <xhtml:link  rel="alternate" hreflang="en" href="https://example.com/en/index.html"/>
-    <xhtml:link  rel="alternate" hreflang="fi" href="https://example.com/fi/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="de" href="https://sttme.net/de/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="en" href="https://sttme.net/en/index.html"/>
+    <xhtml:link  rel="alternate" hreflang="fi" href="https://sttme.net/fi/index.html"/>
   </url>
 </urlset>
