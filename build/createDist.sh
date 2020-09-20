@@ -13,3 +13,6 @@ qutem js/overlay.js
 rm -rf ../dist
 mv dist ../
 cp ../index.html ../dist/
+cd ../dist
+camilla -l -b 'https://sttme.net'
+find . -name "*.tmp." -type f -delete
