@@ -1,4 +1,4 @@
-function selectText(id) {
+function selectText(id, doAfterSelectFunction) {
 	var sel, range;
 	var el = document.getElementById(id); //get element id
 	if (window.getSelection && document.createRange) { //Browser compatibility
@@ -9,6 +9,10 @@ function selectText(id) {
 				range.selectNodeContents(el); //sets Range
 				sel.removeAllRanges(); //remove all ranges from selection
 				sel.addRange(range);//add Range to a Selection.
+
+				if(doAfterSelectFunction != null){
+					doAfterSelectFunction();
+				}
 			}, 1);
 		}
 	} else if (document.selection) { //older ie
@@ -17,16 +21,26 @@ function selectText(id) {
 			range = document.body.createTextRange();//Creates TextRange object
 			range.moveToElementText(el);//sets Range
 			range.select(); //make selection.
+
+			if(doAfterSelectFunction != null){
+				doAfterSelectFunction();
+			}
 		}
 	}
 }
 
 function ocCopy() {
+	/*
 	var range = document.createRange();
 	range.selectNode(document.getElementById('ocp'));
 	window.getSelection().removeAllRanges(); // clear current selection
 	window.getSelection().addRange(range); // to select text
-	document.execCommand('copy');
+	*/
+	let doAfterSelectFunction = function(){
+		document.execCommand('copy');
+	}
+	selectText('ocp', doAfterSelectFunction);
+	
 
 	var copyButtonEl = document.getElementById('copyButton');
 	copyButtonEl.innerHTML = ' <strong>Kopiert</strong>';
@@ -47,8 +61,9 @@ function showTextInOverlay(text) {
 	if (text == null) {
 		text = document.getElementById('ocp').innerText;
 	}
+	window.ocpTxt = text.trim();
 
-	document.getElementById('ocp').innerText = text;
+	document.getElementById('ocp').innerText = window.ocpTxt;
 	show('overlay');
 
 	//dynamic size adjustment

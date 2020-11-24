@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://sttme.net/de/index.html</loc>
-    <lastmod>2020-09-20</lastmod>
+    <lastmod>2020-11-24</lastmod>
     <xhtml:link  rel="alternate" hreflang="de" href="https://sttme.net/de/index.html"/>
     <xhtml:link  rel="alternate" hreflang="en" href="https://sttme.net/en/index.html"/>
     <xhtml:link  rel="alternate" hreflang="fi" href="https://sttme.net/fi/index.html"/>
   </url>
   <url>
     <loc>https://sttme.net/index.html</loc>
-    <lastmod>2020-09-20</lastmod>
+    <lastmod>2020-11-24</lastmod>
   </url>
   <url>
     <loc>https://sttme.net/en/index.html</loc>
-    <lastmod>2020-09-20</lastmod>
+    <lastmod>2020-11-24</lastmod>
     <xhtml:link  rel="alternate" hreflang="de" href="https://sttme.net/de/index.html"/>
     <xhtml:link  rel="alternate" hreflang="en" href="https://sttme.net/en/index.html"/>
     <xhtml:link  rel="alternate" hreflang="fi" href="https://sttme.net/fi/index.html"/>
   </url>
   <url>
     <loc>https://sttme.net/fi/index.html</loc>
-    <lastmod>2020-09-20</lastmod>
+    <lastmod>2020-11-24</lastmod>
     <xhtml:link  rel="alternate" hreflang="de" href="https://sttme.net/de/index.html"/>
     <xhtml:link  rel="alternate" hreflang="en" href="https://sttme.net/en/index.html"/>
     <xhtml:link  rel="alternate" hreflang="fi" href="https://sttme.net/fi/index.html"/>
