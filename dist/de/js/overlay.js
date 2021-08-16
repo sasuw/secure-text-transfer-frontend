@@ -62,8 +62,13 @@ function showTextInOverlay(text) {
 		text = document.getElementById('ocp').innerText;
 	}
 	window.ocpTxt = text.trim();
-
-	document.getElementById('ocp').innerText = window.ocpTxt;
+	
+	if(isTextLink(window.ocpTxt)){
+		document.getElementById('ocp').innerHTML = '<a href="' + window.ocpTxt + '" target="_blank">' + window.ocpTxt + '</a>';
+	}else{
+		document.getElementById('ocp').innerText = window.ocpTxt;
+	}
+	
 	show('overlay');
 
 	//dynamic size adjustment
@@ -86,4 +91,8 @@ function showTextInOverlay(text) {
 	if (!tgIsVisible) {
 		show('ocButtonContainerBottom');
 	}
+}
+
+function isTextLink(text){
+	return text.startsWith('http://') || text.startsWith('https://');
 }

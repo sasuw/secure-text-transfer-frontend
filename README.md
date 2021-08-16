@@ -39,7 +39,7 @@ To run the frontend locally you need a simple HTTP server to server the pages lo
 
 ### Run
 
-If you have Python 3 installed on your machine, just go to the dist directory under root of this project and run
+If you have Python 3 installed on your machine, just go to the **dist** directory under root of this project and run
 
     python -m http.server 8080
 
